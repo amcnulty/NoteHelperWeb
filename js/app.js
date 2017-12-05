@@ -38,18 +38,40 @@ function load() {
     }
 
     function createNote() {
-        if (employeeNum.checked) noteString += employeeNum.value.trim() + ' ';
-        for (var i = 0; i < checkboxes.length; i++) {
-            noteString += checkboxes[i].value + ' ';
+        noteString = '';
+        var addOverride = false;
+        if (employeeNum.value.trim() != '') {
+            noteString += employeeNum.value.trim().toUpperCase() + ' VERIFIED ';
+            for (var i = 0; i < checkboxes.length; i++) {
+                if(checkboxes[i].checked) noteString += checkboxes[i].value + ' ';
+            }
         }
         if (vFraud.checked) noteString += vFraud.value.trim() + ' ';
         if (vLegit.checked) {
             noteString += vLegit.value.trim() + ' ';
             noteString += kbaInput.value.trim() + ' ';
-            noteString += overrideInput.value.trim() + ' ';
+            if (overrideInput.value.trim() != '') addOverride = true;
         }
+        console.log(transactionDivs.length);
         for (var i = 0; i < transactionDivs.length; i++) {
-            // transactionDivs[i].getElementById("transDateInput").value.trim() + ' ';
+            var date = transactionDivs[i].querySelector("#transDateInput").value.trim() + ' ';
+            date = date.substring(5, date.length).replace(/-/, '/');
+            noteString += date;
+            noteString += transactionDivs[i].querySelector("#merchInput").value.trim() + ' ';
+            noteString += transactionDivs[i].querySelector("#locInput").value.trim() + ' ';
+            noteString += "$" + transactionDivs[i].querySelector("#amountInput").value.trim();
+            if (transactionDivs[i].querySelector("#approved").checked) noteString += '(' + transactionDivs[i].querySelector("#approved").value;
+            if (transactionDivs[i].querySelector("#declined").checked) noteString += '(' + transactionDivs[i].querySelector("#declined").value;
+            if (transactionDivs[i].querySelector("#reversed").checked) noteString += '(' + transactionDivs[i].querySelector("#reversed").value;
+            if (transactionDivs[i].querySelector("#multiple").value.trim() != '') noteString += 'X' + transactionDivs[i].querySelector("#multiple").value.trim() + '); ';
+        }
+        if (addOverride) {
+            var date = new Date();
+            date.setDate(date.getDate() + 2);
+            var mm = date.getMonth() + 1;
+            var dd = date.getDate();
+            var dateString = mm + "/" + dd;
+            noteString += 'OVERRIDE ' + overrideInput.value.trim() + ' UNTIL ' + dateString;
         }
     }
 

@@ -44,9 +44,9 @@
         <input type="checkbox" value="DL" id="valDL" class="CVcheckbox">
         <label for="valDL">Driver's Licence</label>
         <h3 class="sectionLabel">Verified Fraud/Legit</h3>
-        <input type="radio" id="vFraud" value="Verified Fraud" name="verified" value="VERIFIED FRAUD/CIP/SHOT">
+        <input type="radio" id="vFraud" name="verified" value="VERIFIED FRAUD/CIP/SHOT">
         <label for="vFraud">Fraud</label>
-        <input type="radio" id="vLegit" value="Verified Legit" name="verified" value="VERIFIED LEGIT/PINID KBA">
+        <input type="radio" id="vLegit" name="verified" value="VERIFIED LEGIT/PINID KBA">
         <label for="vLegit">Legit</label>
         <div class="hidden" id="legitExtras">
           <input type="text" id="kbaInput" placeholder="KBA Number">
@@ -66,11 +66,11 @@
             <br>
             <label class="transLabel" for="amountInput">Dollar Amount:</label>
             <input id="amountInput" type="number">
-            <input id="approved" name="status" type="radio">
+            <input id="approved" name="status" type="radio" value="A">
             <label for="approved">Approved</label>
-            <input id="declined" name="status" type="radio">
+            <input id="declined" name="status" type="radio" value="D">
             <label for="declined">Declined</label>
-            <input id="reversed" name="status" type="radio">
+            <input id="reversed" name="status" type="radio" value="RVRSD">
             <label for="reversed">Reversed</label>
             <br>
             <label class="transLabel" for="multiple">Multiple?</label>
