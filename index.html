@@ -18,10 +18,35 @@
       <img id="bankLogo" src="res/logo/mufgLogo.png" alt="MUFG Logo">
       <hr>
       <form id="noteForm">
+        <h3 class="sectionLabel">Union Bank Employee</h3>
+        <label for="employeeNum">Employee Number</label>
+        <input type="text" id="employeeNum">
+        <br>
+        <h4 class="sectionLabel">How Was Client Verified?</h4>
+        <input type="checkbox" value="PINID" id="valPinID" class="CVcheckbox">
+        <label for="valPinID">Pin ID</label>
+        <br>
+        <input type="checkbox" value="KBA" id="valKBA" class="CVcheckbox">
+        <label for="valKBA">KBA</label>
+        <br>
+        <input type="checkbox" value="DOB" id="valDOB" class="CVcheckbox">
+        <label for="valDOB">Date Of Birth</label>
+        <br>
+        <input type="checkbox" value="BRANCH OF ACCOUNT" id="valBOA" class="CVcheckbox">
+        <label for="valBOA">Branch of Account</label>
+        <br>
+        <input type="checkbox" value="MAIDEN NAME" id="valMMN" class="CVcheckbox">
+        <label for="valMMN">Mother's Maiden Name</label>
+        <br>
+        <input type="checkbox" value="LAST DEPOSIT" id="valLD" class="CVcheckbox">
+        <label for="valLD">Last Deposit</label>
+        <br>
+        <input type="checkbox" value="DL" id="valDL" class="CVcheckbox">
+        <label for="valDL">Driver's Licence</label>
         <h3 class="sectionLabel">Verified Fraud/Legit</h3>
-        <input type="radio" id="vFraud" value="Verified Fraud" name="verified">
+        <input type="radio" id="vFraud" value="Verified Fraud" name="verified" value="VERIFIED FRAUD/CIP/SHOT">
         <label for="vFraud">Fraud</label>
-        <input type="radio" id="vLegit" value="Verified Legit" name="verified">
+        <input type="radio" id="vLegit" value="Verified Legit" name="verified" value="VERIFIED LEGIT/PINID KBA">
         <label for="vLegit">Legit</label>
         <div class="hidden" id="legitExtras">
           <input type="text" id="kbaInput" placeholder="KBA Number">
@@ -47,6 +72,9 @@
             <label for="declined">Declined</label>
             <input id="reversed" name="status" type="radio">
             <label for="reversed">Reversed</label>
+            <br>
+            <label class="transLabel" for="multiple">Multiple?</label>
+            <input type="number" id="multiple">
           </div>
         </div>
         <input id="addTransButton" type="button" value="Add Transaction">

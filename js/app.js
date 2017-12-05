@@ -30,15 +30,31 @@ function load() {
         '<label for="declined">Declined</label>' +
         '<input id="reversed" name="status" type="radio">' +
         '<label for="reversed">Reversed</label>' +
+        '<br>' +
+        '<label class="transLabel" for="multiple">Multiple?</label>' +
+        '<input type="number" id="multiple">' +
       '</div>';
       transactionWrapper.appendChild(newTransaction);
     }
 
     function createNote() {
-
+        if (employeeNum.checked) noteString += employeeNum.value.trim() + ' ';
+        for (var i = 0; i < checkboxes.length; i++) {
+            noteString += checkboxes[i].value + ' ';
+        }
+        if (vFraud.checked) noteString += vFraud.value.trim() + ' ';
+        if (vLegit.checked) {
+            noteString += vLegit.value.trim() + ' ';
+            noteString += kbaInput.value.trim() + ' ';
+            noteString += overrideInput.value.trim() + ' ';
+        }
+        for (var i = 0; i < transactionDivs.length; i++) {
+            // transactionDivs[i].getElementById("transDateInput").value.trim() + ' ';
+        }
     }
 
     function showNote() {
+        note.value = noteString;
         noteOutput.className = 'visible';
         noteOutput.style.display = 'block';
     }
@@ -48,16 +64,35 @@ function load() {
         noteOutput.style.display = 'none';
     }
 
+    var legitExtras = document.getElementById("legitExtras");
+    var transactionWrapper = document.getElementById("transactionWrapper");
+    var noteOutput = document.getElementById("noteOutput");
+    var note = document.getElementById("note");
+    var noteString = '';
+    // Buttons
     var exitButton = document.getElementById("exitButton");
     var fraudButton = document.getElementById("vFraud");
     var legitButton = document.getElementById("vLegit");
-    var legitExtras = document.getElementById("legitExtras");
-    var transactionWrapper = document.getElementById("transactionWrapper");
     var addTransButton = document.getElementById("addTransButton");
-    var noteOutput = document.getElementById("noteOutput");
     var createNoteButton = document.getElementById("createNoteButton");
     var copyNoteButton = document.getElementById("copyNoteButton");
     var resetAllButton = document.getElementById("resetFormButton");
+    // Form inputs
+    var employeeNum = document.getElementById("employeeNum");
+    var checkboxes = document.getElementsByClassName("CVcheckbox");
+    var vFraud = document.getElementById("vFraud");
+    var vLegit = document.getElementById("vLegit");
+    var kbaInput = document.getElementById("kbaInput");
+    var overrideInput = document.getElementById("overrideInput");
+    var transactionDivs = document.getElementsByClassName("transaction");
+    var transDateInput = document.getElementById("transDateInput");
+    var merchInput = document.getElementById("merchInput");
+    var locInput = document.getElementById("locInput");
+    var amountInput = document.getElementById('amountInput');
+    var approved = document.getElementById("approved");
+    var declined = document.getElementById("declined");
+    var reversed = document.getElementById("reversed");
+    var multiple = document.getElementById("multiple");
 
     resetAllButton.addEventListener("click", function(e) {
         location.reload();
