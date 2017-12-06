@@ -77,27 +77,27 @@ function load() {
             console.log(approvedId);
             if (i == 0) {
                 if (transactionDivs[i].querySelector("#approved").checked) {
-                    noteString += '(' + transactionDivs[i].querySelector("#approved").value;
+                    noteString += '(A';
                 }
             }
             else if (transactionDivs[i].querySelector(approvedId).checked) {
-                noteString += '(' + transactionDivs[i].querySelector(approvedId).value;
+                noteString += '(A';
             }
             if (i == 0) {
                 if (transactionDivs[i].querySelector("#declined").checked) {
-                    noteString += '(' + transactionDivs[i].querySelector("#declined").value;
+                    noteString += '(D';
                 }
             }
             else if (transactionDivs[i].querySelector(declinedId).checked) {
-                noteString += '(' + transactionDivs[i].querySelector(declinedId).value;
+                noteString += '(D';
             }
             if (i == 0) {
                 if (transactionDivs[i].querySelector("#reversed").checked) {
-                    noteString += '(' + transactionDivs[i].querySelector("#reversed").value;
+                    noteString += '(RVRSD';
                 }
             }
             else if (transactionDivs[i].querySelector(reversedId).checked) {
-                noteString += '(' + transactionDivs[i].querySelector(reversedId).value;
+                noteString += '(RVRSD';
             }
             // if (transactionDivs[i].querySelector("[name=declined]").checked) noteString += '(' + transactionDivs[i].querySelector("[name=declined]").value;
             // if (transactionDivs[i].querySelector("[name=reversed]").checked) noteString += '(' + transactionDivs[i].querySelector("[name=reversed]").value;
