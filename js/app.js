@@ -6,33 +6,43 @@ function load() {
         legitExtras.className = 'visible';
     }
 
+    function showcardComp() {
+        cardComp.className = 'visible';
+    }
+
     function hidelegitExtras() {
         legitExtras.className = 'hidden';
+    }
+
+    function hidecardComp() {
+        cardComp.className = 'hidden';
     }
 
     function addTransaction() {
         var newTransaction = document.createElement("div");
         newTransaction.innerHTML = '<div class="transaction">' +
-        '<label class="transLabel" for="transDateInput">Date:</label>' +
-        '<input id="transDateInput" type="date">' +
+        '<label class="transLabel" for="transDateInput' + transactionDivs.length + '">Date:</label>' +
+        '<input name="transDateInput" id="transDateInput' + transactionDivs.length + '" type="date">' +
         '<br>' +
-        '<label class="transLabel" for="merchInput">Merchant:</label>' +
-        '<input id="merchInput" type="text">' +
+        '<label class="transLabel" for="merchInput' + transactionDivs.length + '">Merchant:</label>' +
+        '<input name="merchInput" id="merchInput' + transactionDivs.length + '" type="text">' +
         '<br>' +
-        '<label class="transLabel" for="locInput">Location:</label>' +
-        '<input id="locInput" type="text">' +
+        '<label class="transLabel" for="locInput' + transactionDivs.length + '">Location:</label>' +
+        '<input name="locInput" id="locInput' + transactionDivs.length + '" type="text">' +
+        '<input name="keyed" type="checkbox" value="(KEYED)" id="keyed' + transactionDivs.length + '">' +
+        '<label for="keyed' + transactionDivs.length + '">Keyed Entry</label>' +
         '<br>' +
-        '<label class="transLabel" for="amountInput">Dollar Amount:</label>' +
-        '<input id="amountInput" type="number">' +
-        '<input id="approved" name="status" type="radio">' +
-        '<label for="approved">Approved</label>' +
-        '<input id="declined" name="status" type="radio">' +
-        '<label for="declined">Declined</label>' +
-        '<input id="reversed" name="status" type="radio">' +
-        '<label for="reversed">Reversed</label>' +
+        '<label class="transLabel" for="amountInput' + transactionDivs.length + '">Dollar Amount:</label>' +
+        '<input name="amountInput" id="amountInput' + transactionDivs.length + '" type="number">' +
+        '<input id="approved' + transactionDivs.length + '" name="status' + transactionDivs.length + '" type="radio">' +
+        '<label for="approved' + transactionDivs.length + '">Approved</label>' +
+        '<input id="declined' + transactionDivs.length + '" name="status' + transactionDivs.length + '" type="radio">' +
+        '<label for="declined' + transactionDivs.length + '">Declined</label>' +
+        '<input id="reversed' + transactionDivs.length + '" name="status' + transactionDivs.length + '" type="radio">' +
+        '<label for="reversed' + transactionDivs.length + '">Reversed</label>' +
         '<br>' +
-        '<label class="transLabel" for="multiple">Multiple?</label>' +
-        '<input type="number" id="multiple">' +
+        '<label class="transLabel" for="multiple' + transactionDivs.length + '">Multiple?</label>' +
+        '<input name="multiple" type="number" id="multiple' + transactionDivs.length + '">' +
       '</div>';
       transactionWrapper.appendChild(newTransaction);
     }
@@ -49,21 +59,50 @@ function load() {
         if (vFraud.checked) noteString += vFraud.value.trim() + ' ';
         if (vLegit.checked) {
             noteString += vLegit.value.trim() + ' ';
-            noteString += kbaInput.value.trim() + ' ';
+            noteString += kbaInput.value.trim() + '; ';
             if (overrideInput.value.trim() != '') addOverride = true;
         }
-        console.log(transactionDivs.length);
         for (var i = 0; i < transactionDivs.length; i++) {
-            var date = transactionDivs[i].querySelector("#transDateInput").value.trim() + ' ';
+            var date = transactionDivs[i].querySelector("[name=transDateInput]").value.trim() + ' ';
             date = date.substring(5, date.length).replace(/-/, '/');
             noteString += date;
-            noteString += transactionDivs[i].querySelector("#merchInput").value.trim() + ' ';
-            noteString += transactionDivs[i].querySelector("#locInput").value.trim() + ' ';
-            noteString += "$" + transactionDivs[i].querySelector("#amountInput").value.trim();
-            if (transactionDivs[i].querySelector("#approved").checked) noteString += '(' + transactionDivs[i].querySelector("#approved").value;
-            if (transactionDivs[i].querySelector("#declined").checked) noteString += '(' + transactionDivs[i].querySelector("#declined").value;
-            if (transactionDivs[i].querySelector("#reversed").checked) noteString += '(' + transactionDivs[i].querySelector("#reversed").value;
-            if (transactionDivs[i].querySelector("#multiple").value.trim() != '') noteString += 'X' + transactionDivs[i].querySelector("#multiple").value.trim() + '); ';
+            noteString += transactionDivs[i].querySelector("[name=merchInput]").value.trim().toUpperCase() + ' ';
+            noteString += transactionDivs[i].querySelector("[name=locInput]").value.trim().toUpperCase();
+            if (transactionDivs[i].querySelector("[name=keyed").checked) noteString += transactionDivs[i].querySelector("[name=keyed").value.trim() + ' ';
+            else noteString += ' ';
+            noteString += "$" + transactionDivs[i].querySelector("[name=amountInput]").value.trim();
+            var approvedId = '#approved' + i;
+            var declinedId = '#declined' + i;
+            var reversedId = '#reversed' + i;
+            console.log(approvedId);
+            if (i == 0) {
+                if (transactionDivs[i].querySelector("#approved").checked) {
+                    noteString += '(' + transactionDivs[i].querySelector("#approved").value;
+                }
+            }
+            else if (transactionDivs[i].querySelector(approvedId).checked) {
+                noteString += '(' + transactionDivs[i].querySelector(approvedId).value;
+            }
+            if (i == 0) {
+                if (transactionDivs[i].querySelector("#declined").checked) {
+                    noteString += '(' + transactionDivs[i].querySelector("#declined").value;
+                }
+            }
+            else if (transactionDivs[i].querySelector(declinedId).checked) {
+                noteString += '(' + transactionDivs[i].querySelector(declinedId).value;
+            }
+            if (i == 0) {
+                if (transactionDivs[i].querySelector("#reversed").checked) {
+                    noteString += '(' + transactionDivs[i].querySelector("#reversed").value;
+                }
+            }
+            else if (transactionDivs[i].querySelector(reversedId).checked) {
+                noteString += '(' + transactionDivs[i].querySelector(reversedId).value;
+            }
+            // if (transactionDivs[i].querySelector("[name=declined]").checked) noteString += '(' + transactionDivs[i].querySelector("[name=declined]").value;
+            // if (transactionDivs[i].querySelector("[name=reversed]").checked) noteString += '(' + transactionDivs[i].querySelector("[name=reversed]").value;
+            if (transactionDivs[i].querySelector("[name=multiple]").value.trim() != '') noteString += 'X' + transactionDivs[i].querySelector("[name=multiple]").value.trim();
+            noteString += '); ';
         }
         if (addOverride) {
             var date = new Date();
@@ -106,6 +145,7 @@ function load() {
     var vLegit = document.getElementById("vLegit");
     var kbaInput = document.getElementById("kbaInput");
     var overrideInput = document.getElementById("overrideInput");
+    var cardComp = document.getElementById("cardComp");
     var transactionDivs = document.getElementsByClassName("transaction");
     var transDateInput = document.getElementById("transDateInput");
     var merchInput = document.getElementById("merchInput");
@@ -128,12 +168,14 @@ function load() {
     fraudButton.addEventListener("change", function(e) {
         if(e.target.checked) {
             hidelegitExtras();
+            showcardComp();
         }
     }, false)
 
     legitButton.addEventListener('change', function(e) {
         if(e.target.checked) {
             showlegitExtras();
+            hidecardComp();
         }
     }, false);
 

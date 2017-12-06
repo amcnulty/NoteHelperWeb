@@ -52,20 +52,27 @@
           <input type="text" id="kbaInput" placeholder="KBA Number">
           <input type="text" id="overrideInput" placeholder="Override Code">
         </div>
+        <br>
+        <div id="cardComp" class="hidden">
+          <input type="checkbox" id="cardCompInput" value="(CARD COMP)">
+          <label for="cardComp">Card Compromised</label>
+        </div>
         <h3 class="sectionLabel">Verified Transactions</h3>
         <div id="transactionWrapper">
           <div id="firstTransaction" class="transaction">
             <label class="transLabel" for="transDateInput">Date:</label>
-            <input id="transDateInput" type="date">
+            <input name="transDateInput" id="transDateInput" type="date">
             <br>
             <label class="transLabel" for="merchInput">Merchant:</label>
-            <input id="merchInput" type="text">
+            <input name="merchInput" id="merchInput" type="text">
             <br>
             <label class="transLabel" for="locInput">Location:</label>
-            <input id="locInput" type="text">
+            <input name="locInput" id="locInput" type="text">
+            <input name="keyed" type="checkbox" value="(KEYED)" id="keyed">
+            <label for="keyed">Keyed Entry</label>
             <br>
             <label class="transLabel" for="amountInput">Dollar Amount:</label>
-            <input id="amountInput" type="number">
+            <input name="amountInput" id="amountInput" type="number">
             <input id="approved" name="status" type="radio" value="A">
             <label for="approved">Approved</label>
             <input id="declined" name="status" type="radio" value="D">
@@ -74,7 +81,7 @@
             <label for="reversed">Reversed</label>
             <br>
             <label class="transLabel" for="multiple">Multiple?</label>
-            <input type="number" id="multiple">
+            <input name="multiple" type="number" id="multiple">
           </div>
         </div>
         <input id="addTransButton" type="button" value="Add Transaction">
