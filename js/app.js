@@ -56,7 +56,7 @@ function load() {
                 if(checkboxes[i].checked) noteString += checkboxes[i].value + ' ';
             }
         }
-        if (vFraud.checked) noteString += vFraud.value.trim() + ' ';
+        if (vFraud.checked) noteString += vFraud.value.trim() + '; ';
         if (vLegit.checked) {
             noteString += vLegit.value.trim() + ' ';
             noteString += kbaInput.value.trim() + '; ';
@@ -163,6 +163,11 @@ function load() {
     createNoteButton.addEventListener("click", function(e) {
         createNote();
         showNote();
+    }, false);
+
+    copyNoteButton.addEventListener("click", function(e) {
+        note.select();
+        document.execCommand("copy");
     }, false);
 
     fraudButton.addEventListener("change", function(e) {
