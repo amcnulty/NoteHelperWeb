@@ -54,6 +54,10 @@ html, body {
     padding-bottom: 100px;
 }
 
+label {
+    cursor: pointer;
+}
+
 #description {
     margin-top: 50px;
     font-size: 1.1em;
@@ -100,6 +104,40 @@ html, body {
     resize: none;
     width: 100%;
     height: 100px;
+}
+
+#copyModal {
+    position: fixed;
+    display: inline-block;
+    padding: 50px;
+    background-color: #3fca2f98;
+    left: 50%;
+    bottom: 100px;
+    opacity: 0;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.reveal {
+    animation: 2s linear 0s reveal;
+}
+
+@keyframes reveal {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 footer {

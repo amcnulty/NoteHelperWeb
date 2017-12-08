@@ -56,11 +56,22 @@ function load() {
                 if(checkboxes[i].checked) noteString += checkboxes[i].value + ' ';
             }
         }
-        if (vFraud.checked) noteString += vFraud.value.trim() + '; ';
+        if (vFraud.checked) {
+            if (cardCompInput.checked) noteString += vFraud.value.trim() + ' ' + cardCompInput.value + '; ';
+            else noteString += vFraud.value.trim() + '; ';
+        }
         if (vLegit.checked) {
-            noteString += vLegit.value.trim() + ' ';
-            noteString += kbaInput.value.trim() + '; ';
+            noteString += vLegit.value.trim();
+            if (kbaInput.value.trim() != '') noteString += '/PINID KBA ' + kbaInput.value.trim() + '; ';
+            if (altKBAInput.checked) {
+                noteString += '/PINID ALT KBA ';
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if(checkboxes[i].checked) noteString += checkboxes[i].value + ' ';
+                }
+                noteString = noteString.substring(0, noteString.length - 1);
+            }
             if (overrideInput.value.trim() != '') addOverride = true;
+            noteString += '; ';
         }
         for (var i = 0; i < transactionDivs.length; i++) {
             var date = transactionDivs[i].querySelector("[name=transDateInput]").value.trim() + ' ';
@@ -99,8 +110,6 @@ function load() {
             else if (transactionDivs[i].querySelector(reversedId).checked) {
                 noteString += '(RVRSD';
             }
-            // if (transactionDivs[i].querySelector("[name=declined]").checked) noteString += '(' + transactionDivs[i].querySelector("[name=declined]").value;
-            // if (transactionDivs[i].querySelector("[name=reversed]").checked) noteString += '(' + transactionDivs[i].querySelector("[name=reversed]").value;
             if (transactionDivs[i].querySelector("[name=multiple]").value.trim() != '') noteString += 'X' + transactionDivs[i].querySelector("[name=multiple]").value.trim();
             noteString += '); ';
         }
@@ -125,11 +134,16 @@ function load() {
         noteOutput.style.display = 'none';
     }
 
+    function revealModal() {
+        copyModal.className = 'reveal';
+    }
+
     var legitExtras = document.getElementById("legitExtras");
     var transactionWrapper = document.getElementById("transactionWrapper");
     var noteOutput = document.getElementById("noteOutput");
     var note = document.getElementById("note");
     var noteString = '';
+    var copyModal = document.getElementById("copyModal");
     // Buttons
     var exitButton = document.getElementById("exitButton");
     var fraudButton = document.getElementById("vFraud");
@@ -144,8 +158,10 @@ function load() {
     var vFraud = document.getElementById("vFraud");
     var vLegit = document.getElementById("vLegit");
     var kbaInput = document.getElementById("kbaInput");
+    var altKBAInput = document.getElementById("altKBA");
     var overrideInput = document.getElementById("overrideInput");
     var cardComp = document.getElementById("cardComp");
+    var cardCompInput = document.getElementById("cardCompInput");
     var transactionDivs = document.getElementsByClassName("transaction");
     var transDateInput = document.getElementById("transDateInput");
     var merchInput = document.getElementById("merchInput");
@@ -168,7 +184,16 @@ function load() {
     copyNoteButton.addEventListener("click", function(e) {
         note.select();
         document.execCommand("copy");
+        revealModal();
     }, false);
+
+    copyModal.addEventListener("animationend", function(e) {
+        copyModal.className = '';
+    });
+
+    copyModal.addEventListener("webkitAnimationEnd", function(e) {
+        copyModal.className = '';
+    });
 
     fraudButton.addEventListener("change", function(e) {
         if(e.target.checked) {

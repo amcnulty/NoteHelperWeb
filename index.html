@@ -49,16 +49,18 @@
         <h3 class="sectionLabel">Verified Fraud/Legit</h3>
         <input type="radio" id="vFraud" name="verified" value="VERIFIED FRAUD/CIP/SHOT">
         <label for="vFraud">Fraud</label>
-        <input type="radio" id="vLegit" name="verified" value="VERIFIED LEGIT/PINID KBA">
+        <input type="radio" id="vLegit" name="verified" value="VERIFIED LEGIT">
         <label for="vLegit">Legit</label>
         <div class="hidden" id="legitExtras">
           <input type="text" id="kbaInput" placeholder="KBA Number">
+          <input type="checkbox" id="altKBA">
+          <label for="altKBA">Alt KBA</label>
           <input type="text" id="overrideInput" placeholder="Override Code">
         </div>
         <br>
         <div id="cardComp" class="hidden">
           <input type="checkbox" id="cardCompInput" value="(CARD COMP)">
-          <label for="cardComp">Card Compromised</label>
+          <label for="cardCompInput">Card Compromised</label>
         </div>
         <h3 class="sectionLabel">Verified Transactions</h3>
         <div id="transactionWrapper">
@@ -93,6 +95,9 @@
           <textarea id="note"></textarea>
         </div>
       </form>
+      <div id="copyModal" class="invisible">
+        Note Copied To Clipboard
+      </div>
       <footer>
         <div id="createNoteButton" class="footerButton">
           Create Note
