@@ -110,10 +110,11 @@ label {
     position: fixed;
     display: inline-block;
     padding: 50px;
-    background-color: #3fca2f98;
+    background-color: rgba(63, 202, 47, .59);
     left: 50%;
     bottom: 100px;
     opacity: 0;
+    z-index: -1;
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
@@ -128,6 +129,7 @@ label {
 @keyframes reveal {
     0% {
         opacity: 0;
+        z-index: 1;
     }
     10% {
         opacity: 1;
@@ -137,6 +139,7 @@ label {
     }
     100% {
         opacity: 0;
+        z-index: 1;
     }
 }
 

@@ -62,7 +62,7 @@ function load() {
         }
         if (vLegit.checked) {
             noteString += vLegit.value.trim();
-            if (kbaInput.value.trim() != '') noteString += '/PINID KBA ' + kbaInput.value.trim() + '; ';
+            if (kbaInput.value.trim() != '') noteString += '/PINID KBA ' + kbaInput.value.trim();
             if (altKBAInput.checked) {
                 noteString += '/PINID ALT KBA ';
                 for (var i = 0; i < checkboxes.length; i++) {
