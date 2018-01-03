@@ -6,16 +6,18 @@ function load() {
         legitExtras.className = 'visible';
     }
 
-    function showcardComp() {
+    function showFraudExtras() {
         cardComp.className = 'visible';
+        cardLost.className = 'visible';
     }
 
     function hidelegitExtras() {
         legitExtras.className = 'hidden';
     }
 
-    function hidecardComp() {
+    function hideFraudExtras() {
         cardComp.className = 'hidden';
+        cardLost.className = 'hidden';
     }
 
     function addTransaction() {
@@ -50,15 +52,19 @@ function load() {
     function createNote() {
         noteString = '';
         var addOverride = false;
+        // Employee section
         if (employeeNum.value.trim() != '') {
             noteString += employeeNum.value.trim().toUpperCase() + ' VERIFIED ';
             for (var i = 0; i < checkboxes.length; i++) {
                 if(checkboxes[i].checked) noteString += checkboxes[i].value + ' ';
             }
         }
+        // Fraud/Legit section
         if (vFraud.checked) {
-            if (cardCompInput.checked) noteString += vFraud.value.trim() + ' ' + cardCompInput.value + '; ';
-            else noteString += vFraud.value.trim() + '; ';
+            noteString += vFraud.value.trim();
+            if (cardCompInput.checked) noteString += ' ' + cardCompInput.value;
+            if (cardLostInput.checked) noteString += ' ' + cardLostInput.value;
+            noteString += '; ';
         }
         if (vLegit.checked) {
             noteString += vLegit.value.trim();
@@ -73,6 +79,7 @@ function load() {
             if (overrideInput.value.trim() != '') addOverride = true;
             noteString += '; ';
         }
+        // Transactions section
         for (var i = 0; i < transactionDivs.length; i++) {
             var date = transactionDivs[i].querySelector("[name=transDateInput]").value.trim() + ' ';
             date = date.substring(5, date.length).replace(/-/, '/');
@@ -85,7 +92,6 @@ function load() {
             var approvedId = '#approved' + i;
             var declinedId = '#declined' + i;
             var reversedId = '#reversed' + i;
-            console.log(approvedId);
             if (i == 0) {
                 if (transactionDivs[i].querySelector("#approved").checked) {
                     noteString += '(A';
@@ -113,6 +119,7 @@ function load() {
             if (transactionDivs[i].querySelector("[name=multiple]").value.trim() != '') noteString += 'X' + transactionDivs[i].querySelector("[name=multiple]").value.trim();
             noteString += '); ';
         }
+        // Add override at the end
         if (addOverride) {
             var date = new Date();
             date.setDate(date.getDate() + 2);
@@ -161,7 +168,9 @@ function load() {
     var altKBAInput = document.getElementById("altKBA");
     var overrideInput = document.getElementById("overrideInput");
     var cardComp = document.getElementById("cardComp");
+    var cardLost = document.getElementById("cardLost");
     var cardCompInput = document.getElementById("cardCompInput");
+    var cardLostInput = document.getElementById("cardLostInput");
     var transactionDivs = document.getElementsByClassName("transaction");
     var transDateInput = document.getElementById("transDateInput");
     var merchInput = document.getElementById("merchInput");
@@ -198,14 +207,14 @@ function load() {
     fraudButton.addEventListener("change", function(e) {
         if(e.target.checked) {
             hidelegitExtras();
-            showcardComp();
+            showFraudExtras();
         }
     }, false)
 
     legitButton.addEventListener('change', function(e) {
         if(e.target.checked) {
             showlegitExtras();
-            hidecardComp();
+            hideFraudExtras();
         }
     }, false);
 
