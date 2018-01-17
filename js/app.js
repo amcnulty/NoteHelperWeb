@@ -131,7 +131,7 @@ function load() {
     }
 
     function showNote() {
-        note.value = noteString;
+        note.value = noteString.replace(/;  /g, '');
         noteOutput.className = 'visible';
         noteOutput.style.display = 'block';
     }
