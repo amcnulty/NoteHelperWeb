@@ -81,43 +81,51 @@ function load() {
         }
         // Transactions section
         for (var i = 0; i < transactionDivs.length; i++) {
-            var date = transactionDivs[i].querySelector("[name=transDateInput]").value.trim() + ' ';
-            date = date.substring(5, date.length).replace(/-/, '/');
-            noteString += date;
-            noteString += transactionDivs[i].querySelector("[name=merchInput]").value.trim().toUpperCase() + ' ';
-            noteString += transactionDivs[i].querySelector("[name=locInput]").value.trim().toUpperCase();
-            if (transactionDivs[i].querySelector("[name=keyed").checked) noteString += transactionDivs[i].querySelector("[name=keyed").value.trim() + ' ';
-            else noteString += ' ';
-            noteString += "$" + transactionDivs[i].querySelector("[name=amountInput]").value.trim();
-            var approvedId = '#approved' + i;
-            var declinedId = '#declined' + i;
-            var reversedId = '#reversed' + i;
-            if (i == 0) {
-                if (transactionDivs[i].querySelector("#approved").checked) {
+            if (transactionDivs[i].querySelector("[name=transDateInput]").value.trim() !== '' ||
+                transactionDivs[i].querySelector("[name=merchInput]").value.trim() !== '' ||
+                transactionDivs[i].querySelector("[name=locInput]").value.trim() !== '' ||
+                transactionDivs[i].querySelector("[name=amountInput]").value.trim() !== '') {
+                var date = transactionDivs[i].querySelector("[name=transDateInput]").value.trim() + ' ';
+                date = date.substring(5, date.length).replace(/-/, '/');
+                noteString += date;
+                noteString += transactionDivs[i].querySelector("[name=merchInput]").value.trim().toUpperCase() + ' ';
+                noteString += transactionDivs[i].querySelector("[name=locInput]").value.trim().toUpperCase();
+                if (transactionDivs[i].querySelector("[name=keyed").checked) noteString += transactionDivs[i].querySelector("[name=keyed").value.trim() + ' ';
+                else noteString += ' ';
+                noteString += "$" + transactionDivs[i].querySelector("[name=amountInput]").value.trim();
+                var approvedId = '#approved' + i;
+                var declinedId = '#declined' + i;
+                var reversedId = '#reversed' + i;
+                if (i == 0) {
+                    if (transactionDivs[i].querySelector("#approved").checked) {
+                        noteString += '(A';
+                    }
+                }
+                else if (transactionDivs[i].querySelector(approvedId).checked) {
                     noteString += '(A';
                 }
-            }
-            else if (transactionDivs[i].querySelector(approvedId).checked) {
-                noteString += '(A';
-            }
-            if (i == 0) {
-                if (transactionDivs[i].querySelector("#declined").checked) {
+                if (i == 0) {
+                    if (transactionDivs[i].querySelector("#declined").checked) {
+                        noteString += '(D';
+                    }
+                }
+                else if (transactionDivs[i].querySelector(declinedId).checked) {
                     noteString += '(D';
                 }
-            }
-            else if (transactionDivs[i].querySelector(declinedId).checked) {
-                noteString += '(D';
-            }
-            if (i == 0) {
-                if (transactionDivs[i].querySelector("#reversed").checked) {
+                if (i == 0) {
+                    if (transactionDivs[i].querySelector("#reversed").checked) {
+                        noteString += '(RVRSD';
+                    }
+                }
+                else if (transactionDivs[i].querySelector(reversedId).checked) {
                     noteString += '(RVRSD';
                 }
+                if (transactionDivs[i].querySelector("[name=multiple]").value.trim() != '') noteString += 'X' + transactionDivs[i].querySelector("[name=multiple]").value.trim();
+                noteString += '); ';
             }
-            else if (transactionDivs[i].querySelector(reversedId).checked) {
-                noteString += '(RVRSD';
-            }
-            if (transactionDivs[i].querySelector("[name=multiple]").value.trim() != '') noteString += 'X' + transactionDivs[i].querySelector("[name=multiple]").value.trim();
-            noteString += '); ';
+        }
+        if (specialNotes.value.trim() !== '') {
+            noteString += specialNotes.value.trim().toUpperCase() + '; ';
         }
         // Add override at the end
         if (addOverride) {
@@ -180,6 +188,7 @@ function load() {
     var declined = document.getElementById("declined");
     var reversed = document.getElementById("reversed");
     var multiple = document.getElementById("multiple");
+    var specialNotes = document.getElementById("specialNotes");
 
     resetAllButton.addEventListener("click", function(e) {
         location.reload();
