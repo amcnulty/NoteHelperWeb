@@ -136,6 +136,7 @@ function load() {
             var dateString = mm + "/" + dd;
             noteString += 'OVERRIDE ' + overrideInput.value.trim() + ' UNTIL ' + dateString;
         }
+        noteString = noteString.replace(/; $/, '');
     }
 
     function showNote() {
